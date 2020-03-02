@@ -9,11 +9,6 @@ use DB;
 
 class MessagesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
            public function index()
            {
                $messages = message::orderBy('created_at','desc')->paginate(10);
@@ -27,7 +22,7 @@ class MessagesController extends Controller
             */
            public function create()
            {
-               //
+               return view('messages.create');
            }
 
            /**
@@ -158,6 +153,24 @@ class MessagesController extends Controller
             */
            public function destroy($id)
            {
-               //
+               $message = Message::find($id);
+
+               //Check if post exists before deleting
+               if (!isset($message)){
+                   return redirect('/posts')->with('error', 'No Post Found');
+               }
+
+               // Check for correct user
+               if(auth()->user()->id !==$message->user_id){
+                   return redirect('/posts')->with('error', 'Unauthorized Page');
+               }
+
+               if($message->image != 'noimage.jpg'){
+                   // Delete Image
+                   Storage::delete('public/image/'.$message->image);
+               }
+
+               $message->delete();
+               return redirect('/messages')->with('success', 'Post Removed');
            }
 }

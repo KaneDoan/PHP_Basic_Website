@@ -8,7 +8,6 @@ class PagesController extends Controller
 {
     public function index(){
         $title = 'Welcome To Laravel!';
-        //return view('pages.index', compact('title'));
         return view('pages.index')->with('title', $title);
     }
 
@@ -20,7 +19,7 @@ class PagesController extends Controller
     public function services(){
         $data = array(
             'title' => 'Services',
-            'services' => ['Web development']
+            'services' => ['Web development','Programming','Maintain']
         );
         return view('pages.services')->with($data);
     }

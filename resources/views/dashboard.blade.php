@@ -22,7 +22,7 @@
                                         <td>{{$message->title}}</td>
                                         <td><a href="/messages/{{$message->id}}/edit" class="btn btn-default">Edit</a></td>
                                         <td>
-                                            {!!Form::open(['action' => ['messagesController@destroy', $message->id], 'method' => 'message', 'class' => 'pull-right'])!!}
+                                            {!!Form::open(['action' => ['MessagesController@destroy', $message->id], 'method' => 'message', 'class' => 'pull-right'])!!}
                                             {{Form::hidden('_method', 'DELETE')}}
                                             {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
                                             {!!Form::close()!!}
@@ -36,6 +36,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 @endsection
